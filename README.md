@@ -1,6 +1,8 @@
+## libcksum
+
 A tiny library implementing POSIX cksum algorithm.
 
-== Build
+### Build
 
 Make targets:
 
@@ -18,12 +20,12 @@ Make variables:
 * `PREFIX`: set another prefix instead of default `/usr/local`
 * `DESTDIR`: install to `$(DESTDIR)/$(PREFIX)` instead of `$(PREFIX)`
 
-== API
+### API
 
 * `uint32_t cksum (unsigned char *pbuf, uintmax_t length)`:
 Calculate cksum of `length` bytes of `pbuf`.
 
-== Example
+### Example
 
 A very simple (e.g., no error handling, small files only, no "-" support)
 implementation of `cksum(1)` from coreutils:

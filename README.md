@@ -10,8 +10,8 @@ Make targets:
 * `make static`: Build `libcksum.a` static library
 * `make all` or just `make`: Build both versions of library
 * `make test`: Build test binaries and check the implementation
-* `make install`: install both libraries and headers to designated locations
-* `make uninstall`: uninstall libraries and headers from designated locations
+* `make install`: install both libraries, header, and manfile
+* `make uninstall`: uninstall libraries, header, and manfile
 * `make clean`: clean build area
 
 Make variables:

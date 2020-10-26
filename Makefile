@@ -1,5 +1,6 @@
 UNITNAME    = cksum
 MANSECT     = 3
+VERSION     = 0.1
 
 PREFIX     ?= /usr/local
 DESTDIR    ?=
@@ -14,7 +15,9 @@ MANFILE     = $(UNITNAME).$(MANSECT)
 HEADERFILE  = $(UNITNAME).h
 OBJFILE     = $(UNITNAME).o
 STATICLIB   = $(LIBRARYNAME).a
-SHAREDLIB   = $(LIBRARYNAME).so
+LINKERNAME  = $(LIBRARYNAME).so
+SHAREDLIB   = $(LINKERNAME).$(VERSION)
+SONAME      = $(LINKERNAME).$(firstword $(subst ., ,$(VERSION)))
 
 TESTNAME    = test
 SHAREDTEST  = $(TESTNAME)_shared
@@ -33,8 +36,12 @@ static: $(STATICLIB)
 shared: $(SHAREDLIB)
 
 $(SHAREDTEST): $(SHAREDLIB) $(SHAREDTEST).o
+	@$(LOG) \\tLN\\t$(SONAME)
+	$(Q)ln -s $(SHAREDLIB) $(SONAME)
+	@$(LOG) \\tLN\\t$(LINKERNAME)
+	$(Q)ln -s $(SHAREDLIB) $(LINKERNAME)
 	@$(LOG) \\tLD\\t$@
-	$(Q)$(CC) -o $@ $^ -L. -l$(UNITNAME) -Wl,-rpath,.
+	$(Q)$(CC) -o $@ $^ -Wl,-rpath,. -L. -l$(UNITNAME)
 
 $(STATICTEST): $(STATICLIB) $(STATICTEST).o
 	@$(LOG) \\tLD\\t$@
@@ -53,7 +60,7 @@ $(STATICLIB): $(OBJFILE)
 
 $(SHAREDLIB): $(OBJFILE)
 	@$(LOG) \\tLD\\t$@
-	$(Q)$(CC) -shared -o $@ $^
+	$(Q)$(CC) -shared -Wl,-soname,$(SONAME) -o $@ $^
 
 $(OBJFILE): $(UNITNAME).c
 $(STATICTEST).o: $(TESTNAME).c $(HEADERFILE)
@@ -64,7 +71,7 @@ $(SHAREDTEST).o: $(TESTNAME).c $(HEADERFILE)
 	$(Q)$(CC) -o $@ -c -fPIC $(CFLAGS) $<
 
 clean:
-	rm -f *.o $(SHAREDLIB) $(STATICLIB) $(SHAREDTEST) $(STATICTEST)
+	rm -f *.o $(SHAREDLIB) $(STATICLIB) $(SHAREDTEST) $(STATICTEST) $(SONAME) $(LINKERNAME)
 
 install: all
 	install -d $(LIBDIR)
@@ -75,9 +82,12 @@ install: all
 	install -m 644 $(HEADERFILE) $(INCLUDEDIR)
 	install -m 644 $(MANFILE) $(MANDIR)
 	ldconfig
+	ln -s $(SHAREDLIB) $(LIBDIR)/$(LINKERNAME)
 
 uninstall:
 	rm -f $(LIBDIR)/$(SHAREDLIB)
+	rm -f $(LIBDIR)/$(LINKERNAME)
+	rm -f $(LIBDIR)/$(SONAME)
 	rm -f $(LIBDIR)/$(STATICLIB)
 	rm -f $(INCLUDEDIR)/$(HEADERFILE)
 	rm -f $(MANDIR)/$(MANFILE)

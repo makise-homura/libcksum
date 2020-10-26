@@ -1,0 +1,23 @@
+.TH CKSUM 3  2020-10-26 "LIBCKSUM" "Libcksum Manual"
+.SH NAME
+cksum \- calculate POSIX cksum of memory area
+.SH SYNOPSIS
+.nf
+.B #include <cksum.h>
+.PP
+.BI "uint32_t cksum (unsigned char *" pbuf ", uintmax_t " length ");"
+.fi
+.SH DESCRIPTION
+The
+.BR cksum ()
+function calculates POSIX cksum of the first
+.I length
+bytes of the memory area pointed to by
+.IR pbuf .
+.SH RETURN VALUE
+The
+.BR cksum ()
+function returns a 32-bit POSIX cksum of the requested memory area
+.IR pbuf .
+.SH SEE ALSO
+.BR cksum (1)

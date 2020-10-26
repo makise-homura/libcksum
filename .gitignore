@@ -1,0 +1,5 @@
+*.o
+libcksum.so
+libcksum.a
+test_shared
+test_static

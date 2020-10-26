@@ -50,3 +50,11 @@ int main(int argc, char *argv[])
     return 0;
 }
 ```
+Build it with the command like this:
+```
+cc libcksum_test.c -lcksum -o libcksum_test
+```
+Run the same way you run `cksum`:
+```
+./libcksum_test testfile.bin
+```

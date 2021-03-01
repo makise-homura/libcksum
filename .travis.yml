@@ -9,4 +9,8 @@ compiler:
   - gcc
 os:
   - linux
-  - windows
+  - osx
+arch:
+  - amd64
+  - ppc64le
+  - arm64

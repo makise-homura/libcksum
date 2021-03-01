@@ -4,3 +4,9 @@ notifications:
 script:
   - make
   - make test
+compiler:
+  - clang
+  - gcc
+os:
+  - linux
+  - windows

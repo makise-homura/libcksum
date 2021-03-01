@@ -2,6 +2,10 @@
 
 A tiny library implementing POSIX cksum algorithm for Linux.
 
+AppVeyor status: ![](https://ci.appveyor.com/api/projects/status/github/makise-homura/libcksum?svg=true)
+
+Travis CI status: ![](https://travis-ci.com/makise-homura/libcksum.svg?branch=master)
+
 ### Build
 
 Make targets:

@@ -1,6 +1,6 @@
 ## libcksum
 
-A tiny library implementing POSIX cksum algorithm.
+A tiny library implementing POSIX cksum algorithm for Linux.
 
 ### Build
 

@@ -1,7 +1,6 @@
 version: 1.0.{build}
 image:
 - Ubuntu1804
-- Visual Studio 2013
 build_script:
 - sh: make all
 test_script:

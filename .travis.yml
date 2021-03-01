@@ -1,3 +1,6 @@
 language: c
 notifications:
   email: false
+script:
+  - make
+  - make test

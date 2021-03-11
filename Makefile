@@ -41,11 +41,11 @@ $(SHAREDTEST): $(SHAREDLIB) $(SHAREDTEST).o
 	@$(LOG) \\tLN\\t$(LINKERNAME)
 	$(Q)ln -s $(SHAREDLIB) $(LINKERNAME)
 	@$(LOG) \\tLD\\t$@
-	$(Q)$(CC) -o $@ $^ -Wl,-rpath,. -L. -l$(UNITNAME)
+	$(Q)$(CC) -o $@ $^ -Wl,-rpath,. -L. -l$(UNITNAME) $(LDFLAGS)
 
 $(STATICTEST): $(STATICLIB) $(STATICTEST).o
 	@$(LOG) \\tLD\\t$@
-	$(Q)$(CC) -static -o $@ $^ -L. -l$(UNITNAME)
+	$(Q)$(CC) -static -o $@ $^ -L. -l$(UNITNAME) $(LDFLAGS)
 
 test: $(SHAREDTEST) $(STATICTEST)
 	@echo -e \\tTesting with shared library...
@@ -60,7 +60,7 @@ $(STATICLIB): $(OBJFILE)
 
 $(SHAREDLIB): $(OBJFILE)
 	@$(LOG) \\tLD\\t$@
-	$(Q)$(CC) -shared -Wl,-soname,$(SONAME) -o $@ $^
+	$(Q)$(CC) -shared -Wl,-soname,$(SONAME) $(LDFLAGS) -o $@ $^
 
 $(OBJFILE): $(UNITNAME).c
 $(STATICTEST).o: $(TESTNAME).c $(HEADERFILE)
